@@ -39,13 +39,13 @@ func main() {
 	var wg sync.WaitGroup
 	for _, p := range people {
 		wg.Add(1)
-		go p.dine(wg, dishes)
+		go p.dine(&wg, dishes)
 	}
 	wg.Wait()
 	fmt.Println("That was delicious!")
 }
 
-func (p person) dine(wg sync.WaitGroup, d []dish) {
+func (p person) dine(wg *sync.WaitGroup, d []dish) {
 	dishIndex := rand.Intn(5)
 	for {
 		if !foodRemains(d) {
